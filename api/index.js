@@ -6,7 +6,7 @@ const User = require("../api/models/user")
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
-const jwtSecret = "msndksdhadhsdkjnxmclCMCsidkd";
+const jwtSecret = " sksdasjdnksdnjs";
 const cookieParser = require('cookie-parser')
 // const salt = bcrypt.genSaltSync(saltRounds);
 
@@ -57,21 +57,21 @@ app.post('/login', async (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-  const token = req.cookies;
-  if (token){
-    jwt.verify(token , jwtSecret, {},(err, user)=>{
+  const token = req.cookies.token; 
+  if (token) {
+    jwt.verify(token, jwtSecret, {}, (err, user) => {
       if (err) throw err;
       res.json(user);
-
-    })
-
-  }else{
-    res.json(null)
+    });
+  } else {
+    res.json(null);
   }
+});
+app.post("/logout",(req, res) => {
 
-    }
-)
+  res.cookie("token", "").json(true);
 
+})
 app.listen(4000, () => {
   console.log('Example app listening on port 4000!');
 });
